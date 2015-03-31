@@ -36,7 +36,7 @@ console.log(count);
 /*
  * TODO - REACT
  * 
- * Rever questão de mover elemento para uma DIV - posição relativa de cada Canvas para seus filhos
+ * criar layers -> verificar e settar o tamanho em cada layer gerando um setTimeout para agendar posicionar o item corretamente antes do tratamento de seus filhos.
  * 
  * 
  * EVENTO RESIZE
@@ -90,6 +90,7 @@ console.log(count);
 //	$proto.parentNode = null;
 	
 	$proto.lsCanvas = null;
+	$proto.layers = [] // TODO!!!
 	$proto.lsVirtualCanvas = null;
 	$proto.scheduleCanvas = null
 	$proto.isBuildingVirtualTree = false;
@@ -186,17 +187,42 @@ console.log(count);
 	$proto._buildScheduledCanvas = function () {
 		for (var i = 0 ; i < this.scheduleCanvas.length ; i++) {
 			var canvasElement = this.scheduleCanvas[i];
-			var height = this._buildCanvasChildren(canvasElement);
-			// TODO HEIGHT SCHEDULE
-//			setTimeout(
-//			function(){
-//					canvasElement.style.height = heigth;
-//					OR
-//					scope._buildCanvasHeight(canvasElement, height);
-//			}, 0);
+			this.buildCanvasOffset(canvasElement);
 		}
 		this.scheduleCanvas = null;
-	}
+	};
+	
+	$proto.buildCanvasOffset = function (canvasElement) {
+		//WIDTH
+		var maxWidth = canvasElement.parentElement.offsetWidth;
+		var widthRequired;
+		var sizeType = this.getSizeType(canvasElement, 'width');
+		var sizeValue = this.getRelativeValueInt(canvasElement.getAttribute('width'));
+		if (sizeType === '%') {
+			widthRequired = (sizeValue / 100) * maxWidth;
+		} else if (sizeType === 'px') {
+			widthRequired = sizeValue;
+		}
+		canvasElement.style.width = widthRequired + 'px';
+		
+		//HEIGHT
+		var maxHeight = canvasElement.parentElement.offsetHeight;
+		var heightRequired;
+		sizeType = this.getSizeType(canvasElement, 'height');
+		sizeValue = this.getRelativeValueInt(canvasElement.getAttribute('height'));
+		if (sizeType === '%') {
+			heightRequired = (sizeValue / 100) * maxHeight;
+		} else if (sizeType === 'px') {
+			heightRequired = sizeValue;
+		}
+		canvasElement.style.height = heightRequired + 'px';
+		
+//		var offset = this.getOffset(canvasElement);
+//		canvasElement.style.position = "absolute";
+//		canvasElement.style.left = offset.left + 'px';
+//		canvasElement.style.top = offset.top + 'px';
+//		canvasElement.style.top = offset.top + 'px';
+	};
 	
 	/**
 	 * line
@@ -211,14 +237,17 @@ console.log(count);
 	$proto._buildCanvasChildren = function (canvasElement) {
 		var layout = this.getCanvasAlignType(canvasElement);
 		if (layout === 'line') {
-			this._printElementLines(canvasElement);
+			var scope = this;
+			setTimeout(function(){
+				scope._printElementLines(canvasElement);
+			}, 3000);
 		} else if (layout === 'free') {
 			alert('not implemented yet!');
 		}
 	};
 	
-	$proto._printElementLines = function(canvasElement) {
-		var maxWidth = this.getLineWidth(canvasElement); // TODO não existe barra de rolagem
+	$proto._printElementLines = function(virtualElement) {
+		var maxWidth = this.getLineWidth(virtualElement); // TODO não existe barra de rolagem
 		var parentWidth = 100; // TODO
 		var _xCurrent = 0;
 		var _yCurrent = 0;
@@ -227,7 +256,7 @@ console.log(count);
 		var widthRequired = null;
 		var heightRequired = null;
 		var element = null;
-		var children = canvasElement.children;
+		var children = virtualElement.children;
 		for (var index = 0 ; index < children.length ; index++) {
 			element = children[index];
 			if (!element) {
@@ -285,23 +314,24 @@ console.log(count);
 	}
 	
 	$proto.getLineWidth = function (element) {
-		return this.getRelativeValueInt(element.style.width); // TODO
+		return this.getRelativeValueInt(element.parentElement.offsetWidth); // TODO
 	}
 	
 	$proto.getSizeType = function (element, attribute) {
 		var value = element.getAttribute(attribute) + '';
 		if (value.endsWith('%')) {
 			return '%';
-		} else if (value.endsWith('%')) {
+		} else if (value.endsWith('px')) {
 			return 'px';
 		}
 		return '%'; // DEFAULT
 	};
 	
 	$proto.getRelativeValueInt = function (value) { // TODO sizeType
-		if (!value) {
+		if (value === undefined) {
 			return 100; // 100% default
 		}
+		value = value + '';
 		if (value.endsWith('%')) {
 			value = value.substring(0, value.length - 1);
 		} else if (value.endsWith('px')) {
@@ -319,6 +349,18 @@ console.log(count);
 		this.clearElements();
 		this._discoverAndRegisterElements(this.rootElement);
 		this.createVirtualCanvas();
+		//TODO ------------- here
+//		var scope = this;
+//		setTimeout(function() {
+//			var height = scope._buildCanvasChildren(canvasElement);
+//			 TODO HEIGHT SCHEDULE
+//			setTimeout(
+//			function(){
+//					canvasElement.style.height = height;
+//					OR
+//					scope._buildCanvasHeight(canvasElement, height);
+//			}, 0);
+//		}, 0);
 	};
 	
 	$proto.createVirtualCanvas = function () {
@@ -333,6 +375,8 @@ console.log(count);
 				virtualCanvas.style.position = "absolute";
 				virtualCanvas.style.left = offset.left + 'px';
 				virtualCanvas.style.top = offset.top + 'px';
+				virtualCanvas.style.width = canvasElement.style.width;
+				virtualCanvas.style.height = canvasElement.style.height;
 				// remove
 				virtualCanvas.style.border = '1px solid red';
 				// - remove
@@ -398,12 +442,22 @@ console.log(count);
 	    var _x = 0;
 	    var _y = 0;
 	    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+	        _x += el.offsetLeft; - el.scrollLeft;
+	        _y += el.offsetTop; - el.scrollTop;
+	        el = el.offsetParent;
+	    }
+	    return { top: _y, left: _x };
+	};
+	/*$proto.getOffset = function ( el ) {
+	    var _x = 0;
+	    var _y = 0;
+	    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
 	        _x += el.offsetLeft - el.scrollLeft;
 	        _y += el.offsetTop - el.scrollTop;
 	        el = el.offsetParent;
 	    }
 	    return { top: _y, left: _x };
-	};
+	};*/
 	
 })();
 
