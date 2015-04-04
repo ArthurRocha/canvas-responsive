@@ -1,9 +1,14 @@
 # form-layout
-
+<div layout>
+	<input width="fill" >
+	<div width="10%" >...</div>
+	<div width="105px" >...</div>
+</div>
 # Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
-* Bug posicionamento *top posiÁ„o Y, padding 
-* Bug getOffset considerando offset do parent (inserir trecho html em p·ginas aleatÛrias e executar script)
+* Bug posicionamento *top posi√ß√£o Y, padding 
+* Bug getOffset considerando offset do parent (inserir trecho html em p√°ginas aleat√≥rias e executar script)
+* Implentar width="fill"
 * Testes 
 - http://purecss.io/tables/
 - http://yuilibrary.com/yui/docs/charts/charts-multiseries.html
@@ -72,10 +77,10 @@ console.log(count);
  * 	<div form-layout | lform
  * 		<children label width height message-error message-success messageInfo messageWarn helpMessage
  * Atributos
- * form -> Identificador de formul·rio responsivo e com controle de mensagens sobre seus filhos.
- * label -> TÌtulo do campo
+ * form -> Identificador de formul√°rio responsivo e com controle de mensagens sobre seus filhos.
+ * label -> T√≠tulo do campo
  * width / height
- * messageError / messageSuccess / messageInfo / messageWarn -> Mensagens em linha abaixo do campo com sÌmbolo representativo e seta de bal„o indicando o campo.
+ * messageError / messageSuccess / messageInfo / messageWarn -> Mensagens em linha abaixo do campo com s√≠mbolo representativo e seta de bal√£o indicando o campo.
  * helpMessage - Adiciona icone de ajuda com texto/html explicativo
  * 
  * criar layers -> verificar e settar o tamanho em cada layer gerando um setTimeout para agendar posicionar o item corretamente antes do tratamento de seus filhos.
@@ -88,7 +93,7 @@ console.log(count);
  * cada filho do canvas possui um rectangle correspondente?
  * 
  * INPUT
- * mensagem inline - bal„o - TODO - Material Google
+ * mensagem inline - bal√£o - TODO - Material Google
  * 
  * DRAG AND DROP - conversa para troca de filhos entre elementos canvas
  * 	<canvas drag-drop
@@ -96,8 +101,8 @@ console.log(count);
  * 	<canvas drop
  * 	canDrag - poder soltar - encaixar - sinalizar areas com css
  * 
- * EVENTOS DE SINALIZA«√O PARA O USUARIO
- * - CIRCULAR ELEMENTOS - FORMAR CÕRCULO POR VOLTA DOS ELEMENTOS
+ * EVENTOS DE SINALIZA√á√ÉO PARA O USUARIO
+ * - CIRCULAR ELEMENTOS - FORMAR C√çRCULO POR VOLTA DOS ELEMENTOS
  * - BRILHO POR VOLTA DOS ELEMENTOS
  * - PISCAR
  * 
