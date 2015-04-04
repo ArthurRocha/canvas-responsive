@@ -3,6 +3,7 @@
 # Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
 * Bug posicionamento *top posição Y, padding 
+* Bug getOffset considerando offset do parent (inserir trecho html em páginas aleatórias e executar script)
 * Testes 
 - http://purecss.io/tables/
 - http://yuilibrary.com/yui/docs/charts/charts-multiseries.html
