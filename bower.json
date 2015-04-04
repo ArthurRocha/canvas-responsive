@@ -1,0 +1,25 @@
+{
+  "name": "form-layout",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ArthurRocha/canvas-responsive",
+  "authors": [
+    "Arthur Rocha <arthur.pdr@gmail.com>"
+  ],
+  "description": "Build layouts and templates avoiding css conflict.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "form",
+    "layout",
+    "responsive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

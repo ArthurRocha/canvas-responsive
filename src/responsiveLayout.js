@@ -35,8 +35,18 @@ console.log(count);
 
 /*
  * TODO - REACT
+ * Modelo:
+ * 	<div form 
+ * 		<children label width height messageError messageSuccess messageInfo messageWarn helpMessage
+ * Atributos
+ * form -> Identificador de formulário responsivo e com controle de mensagens sobre seus filhos.
+ * label -> Título do campo
+ * width / height
+ * messageError / messageSuccess / messageInfo / messageWarn -> Mensagens em linha abaixo do campo com símbolo representativo e seta de balão indicando o campo.
+ * helpMessage - Adiciona icone de ajuda com texto/html explicativo
  * 
  * criar layers -> verificar e settar o tamanho em cada layer gerando um setTimeout para agendar posicionar o item corretamente antes do tratamento de seus filhos.
+ * nada pode ficar dentro de canvas
  * 
  * 
  * EVENTO RESIZE
