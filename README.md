@@ -1,5 +1,9 @@
 # form-layout
 
+# Atividades
+* Bug barra de rolagem horizontal (nunca deve existir)
+* Bug posicionamento *top posição Y, padding 
+
 https://www.youtube.com/watch?v=ya4UHuXNygM
 https://www.youtube.com/user/yuilibrary
 
