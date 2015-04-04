@@ -1,4 +1,7 @@
 # form-layout
+Ideias
+* width fill
+Preencher a direita, esquerda ou meio dos itens?
 < div layout>
 	< input width="fill" >
 	< div width="10%" >...</div>
