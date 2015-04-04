@@ -3,6 +3,13 @@
 # Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
 * Bug posicionamento *top posição Y, padding 
+* Testes 
+- http://purecss.io/tables/
+- http://yuilibrary.com/yui/docs/charts/charts-multiseries.html
+- http://yuilibrary.com/yui/docs/calendar/calendar-simple.html
+- https://jqueryui.com/
+- https://material.angularjs.org/
+- https://facebook.github.io/react/
 
 https://www.youtube.com/watch?v=ya4UHuXNygM
 https://www.youtube.com/user/yuilibrary
@@ -47,7 +54,7 @@ console.log(count);
  * http://bosonic.github.io/demos.html#
  * http://www.x-tags.org/index
  * https://www.polymer-project.org/
- * 
+ * https://angularjs.org/
  */
 
 // Form Layout Microsoft - https://msdn.microsoft.com/en-us/library/windows/apps/jj839734.aspx
