@@ -7,7 +7,8 @@ Preencher a direita, esquerda ou meio dos itens?
 	< div width="10%" >...</div>
 	< div width="105px" >...</div>
 </ div>
-# Atividades
+
+* Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
 * Bug posicionamento *top posição Y, padding 
 * Bug getOffset considerando offset do parent (inserir trecho html em páginas aleatórias e executar script)
