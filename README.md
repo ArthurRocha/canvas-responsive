@@ -1,9 +1,9 @@
 # form-layout
-<div layout>
-	<input width="fill" >
-	<div width="10%" >...</div>
-	<div width="105px" >...</div>
-</div>
+< div layout>
+	< input width="fill" >
+	< div width="10%" >...</div>
+	< div width="105px" >...</div>
+</ div>
 # Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
 * Bug posicionamento *top posição Y, padding 
