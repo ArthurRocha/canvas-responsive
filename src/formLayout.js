@@ -103,17 +103,22 @@
 	};
 	
 	$proto._buildForms = function () {
-		for (var i = 0 ; i < this.lsFormSchedule.length ; i++) {
-			var formElement = this.lsFormSchedule[i];
-			this.buildLayoutOffset(formElement); // set time out para renderizar os forms?
+		var begin = new Date();
+		for (var j = 0 ; j < 10 ; j ++) {// TODO IMPLEMENTAR - profundidade máxima simulada 10 - implementar identificação de maior profundidade
+			for (var i = 0 ; i < this.lsFormSchedule.length ; i++) {
+				var formElement = this.lsFormSchedule[i];
+				this.buildLayoutOffset(formElement); // set time out para renderizar os forms?
+			}
 		}
+		console.log((new Date()).getTime() - begin.getTime());
 		this.lsFormSchedule = null;
 	};
 	// TODO form para layout e processar form de verdade
 	$proto.buildLayoutOffset = function (layoutElement) {
 		//WIDTH
 		// if parent is an form return because this size was setted by this parent
-		if (!layoutElement.parentElement.hasAttribute('layout')) {
+		var isParentAnLayout = layoutElement.parentElement.hasAttribute('layout');
+		if (!isParentAnLayout) {
 			this.buildLayoutWidth(layoutElement);
 		}
 		var _horizontalPadding = 10;
@@ -127,26 +132,11 @@
 			var child = children[i];
 			_xPosition = this.configLines(lines, child, layoutWidth, _xPosition);
 		}
-		
-		var linesHeight = this.buildLines(layoutElement, lines, layoutWidth, _horizontalPadding, 10);
+		// 50 % do padding aplicado a cada aresta
+		_verticalPadding /= 2;
+		_horizontalPadding /= 2;
+		var linesHeight = this.buildLines(layoutElement, lines, layoutWidth, _horizontalPadding, _verticalPadding, isParentAnLayout);
 		layoutElement.style.height = linesHeight + 'px';
-		//HEIGHT
-//		var maxHeight = formElement.parentElement.offsetHeight;
-//		var heightRequired;
-//		sizeType = this.getSizeType(formElement, 'height');
-//		sizeValue = this.getSizeValueInt(formElement.getAttribute('height'));
-//		if (sizeType === '%') {
-//			heightRequired = (sizeValue / 100) * maxHeight;
-//		} else if (sizeType === 'px') {
-//			heightRequired = sizeValue;
-//		}
-//		formElement.style.height = heightRequired + 'px';
-		
-//		var offset = this.getOffset(canvasElement);
-//		canvasElement.style.position = "absolute";
-//		canvasElement.style.left = offset.left + 'px';
-//		canvasElement.style.top = offset.top + 'px';
-//		canvasElement.style.top = offset.top + 'px';
 	};
 	
 	$proto.buildLayoutWidth = function (formElement) {
@@ -162,35 +152,49 @@
 		formElement.style.width = elementWidth + 'px';
 	};
 	
-	$proto.buildLines = function (layoutElement, lines, layoutWidth, _horizontalPadding, _verticalPadding) {
+	$proto.buildLines = function (layoutElement, lines, layoutWidth, _horizontalPadding, _verticalPadding, avoidBorderPadding) {
+		
 		var parentOffset = {left : 0, top : 0};
 		if (layoutElement.style.position !== 'absolute') {
 			parentOffset = LUtil.getOffset(layoutElement);
 		}
-		var _yPosition = parentOffset.top;
+		var _yPosition = parentOffset.top + (avoidBorderPadding ? 0 : _verticalPadding);
 		for (var i = 0 ; i < lines.length; i ++ ) {
 			var line = lines[i];
 			var lsElements = line.lsElements;
 			var lineLength = lsElements.length;
-			var lineWidth = layoutWidth - ((lineLength - 1) * _horizontalPadding);
+			var lineWidth = layoutWidth;
 			var maxHeight = 0;
-			var _xPosition = parentOffset.left;
+			var _xPosition = parentOffset.left + (avoidBorderPadding ? 0 : _horizontalPadding);
 			for (var indexElement = 0 ; indexElement < lineLength ; indexElement ++ ) {
 				var elementConf = lsElements[indexElement]; // {element, widthType, widthValue, width}
 				var element = elementConf.element;
+				var elementIsAnLayout = element.hasAttribute('layout');
+				element.style.position = "absolute";
+				
 				var widthType = elementConf.widthType;
 				var widthValue = elementConf.widthValue;
 				var elementWidth;
 				if (widthType === '%') {
 					elementWidth = (widthValue / 100) * lineWidth;
+					if (!elementIsAnLayout) {
+						elementWidth -= (_horizontalPadding * 2);
+					}
 				} else {// if (widthType === 'px') {
 					elementWidth = widthValue;
 				}
-				element.style.position = "absolute";
+				if (indexElement > 0) { // padding left - primeiro item 'padding' calculado na declaração 
+					_xPosition += _horizontalPadding;
+				}
+				
 				element.style.left = _xPosition + 'px';
-				element.style.top = _yPosition + 'px';
 				element.style.width = elementWidth + 'px';
-				_xPosition += (elementWidth + _horizontalPadding);
+				_xPosition += elementWidth; // element with + padding right
+				if (!elementIsAnLayout) {
+					_xPosition += _horizontalPadding;
+				}
+				
+				element.style.top = _yPosition + 'px';
 				
 				if (element.offsetHeight > maxHeight) {
 					maxHeight = element.offsetHeight;
@@ -213,7 +217,7 @@
 			elementWidth = sizeValue;
 		}
 		
-		if (_xPosition + elementWidth > parentWidth) {
+		if (_xPosition + elementWidth > parentWidth + 1) {
 			_xPosition = 0;
 			currentLine = new lFormLine();
 			lines.push(currentLine);
