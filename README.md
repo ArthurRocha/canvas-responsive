@@ -1,18 +1,36 @@
 # form-layout
+Objetivo
+Ofertar alinhamento e aninhamento de elementos Html de forma simples e objetiva.
+Evita conflitos CSS, pode ser utilizado com qualquer framework JS.  
+
 Ideias
+
 * width fill
 Preencher a direita, esquerda ou meio dos itens?
+se houver apenas o item fill ele preenche toda a linha.
+se houver itens a direita e esquerda ele preenche o meio deixando apenas um item a esquerda e um a direita.
+se houver itens a direita o item fill ele preenche todo o espaço esquerdo reservando espaço para apenas o próximo campo, o restando em novas linhas.
+se houver itens a esquerda ele deverá o
+
 < div layout>
 	< input width="fill" >
 	< div width="10%" >...</div>
 	< div width="105px" >...</div>
 </ div>
 
-* Atividades
+* label
+Se escrever label (div label) já reserva o espaço determinado para os labels da linha (label acima);
+Apenas insere espaço de label caso tenha sido definido o atributo no próprio elemento. 
+
+* Mensagens
+Mover mensagens para outra API
+
+Atividades
 * Bug barra de rolagem horizontal (nunca deve existir)
 * Bug posicionamento *top posição Y, padding 
-* Bug getOffset considerando offset do parent (inserir trecho html em páginas aleatórias e executar script)
+* Bug getOffset considerando offset do parent (inserir trecho html em pÃ¡ginas aleatÃ³rias e executar script)
 * Implentar width="fill"
+* Testar margin definido no parent de layout
 * Testes 
 - http://purecss.io/tables/
 - http://yuilibrary.com/yui/docs/charts/charts-multiseries.html
@@ -115,3 +133,4 @@ console.log(count);
  * http://code.tutsplus.com/articles/21-ridiculously-impressive-html5-canvas-experiments--net-14210
  * 
  */
+
