@@ -156,7 +156,7 @@
 		
 		var parentOffset = {left : 0, top : 0};
 		if (layoutElement.style.position !== 'absolute') {
-			parentOffset = LUtil.getOffset(layoutElement);
+			parentOffset = Util.getOffset(layoutElement);
 		}
 		var _yPosition = parentOffset.top + (avoidBorderPadding ? 0 : _verticalPadding);
 		for (var i = 0 ; i < lines.length; i ++ ) {
@@ -288,9 +288,9 @@
 	//*******************************************************************************************************
 	//*******	UTIL
 	//*******************************************************************************************************
-	window.LUtil = function () {};
+	window.Util = function () {};
 
-	LUtil.getOffset = function ( el ) {
+	Util.getOffset = function ( el ) {
 	    var _x = 0;
 	    var _y = 0;
 	    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
@@ -301,7 +301,7 @@
 	    return { top: _y, left: _x };
 	};
 	
-	LUtil.delay = (function(){
+	Util.delay = (function(){
 		var timer = 0;
        return function(callback, ms){
     	   clearTimeout (timer);
@@ -321,7 +321,7 @@
 	};
 
 	window.onresize = function () {
-		LUtil.delay(function(){
+		Util.delay(function(){
 			window.rl.rebuildElements();
 		}, 100);
 	}
