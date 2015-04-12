@@ -72,6 +72,11 @@
 	$proto.buildLine = function () {
 		var _xPosition = this.getOffsetLeft();
 		var elements = this.getElements();
+		var elementsLayoutCount = this.getElementsLayoutCount();
+		if (this.parentLayoutElement.isParentAnLayout) {
+			elementsLayoutCount--;
+		}
+		var totalWidthWithoutPadding = this.parentWidth - elementsLayoutCount * this._horizontalPadding
 		for (var i = 0 ; i < elements.length; i ++ ) {
 			var childElement = elements[i];
 			var node = childElement.node;
@@ -81,7 +86,7 @@
 			var widthValue = childElement.widthValue;
 			var elementWidth;
 			if (widthType === '%') {
-				elementWidth = this.parentWidth * (widthValue / 100);
+				elementWidth = totalWidthWithoutPadding * (widthValue / 100);
 				if (!childElement.isLayout) {
 					elementWidth -= (this._horizontalPadding);
 				}
