@@ -24,9 +24,18 @@
 	
 	// se não possuir o width definido deve assumir o width do style (parametrizar)
 	$proto.buildLines = function () {
+		//TODO DEFINIR COMO ABSOLUTE E SETAR X E Y -- SETA O WIDTH NO INICIO E O HEIGHT NO FINAL -- CRIA UMA DIV POR VOLTA CASO O PARENT N SEJA LAYOUT ELEMENT? PARA FICAR OK COM O CSS ATUAL
+		
 		var layoutElement = this.node;
 		if (!this.isParentAnLayout) {
-			this.buildLayoutWidth(layoutElement);
+			var offset = flexLayout.Util.getOffset(layoutElement);
+			layoutElement.style.position = 'absolute';
+			layoutElement.style.top = offset.top + 'px';
+			layoutElement.style.left = offset.left + 'px';
+			var layoutWidth = this.buildLayoutWidth(layoutElement);
+			/*if (layoutElement.parentElement.offsetWidth < layoutWidth) {
+				layoutElement.parentElement.style.height = layoutElement.style.width;
+			}*/
 		}
 		/*
 		 * Os paddings sao aplicados aos filhos que nao sao do tipo layout
@@ -36,11 +45,14 @@
 		
 		//
 		this.layoutHeight = this.configLines(layoutElement, _horizontalPadding, _verticalPadding);
-		// 50 % do padding aplicado a cada aresta
-		/*_verticalPadding /= 2;
-		_horizontalPadding /= 2;
-		var linesHeight = this._buildLines(layoutElement, layoutWidth, _horizontalPadding, _verticalPadding);
-		layoutElement.style.height = linesHeight + 'px';*/
+		layoutElement.style.height = this.layoutHeight + 'px';
+		
+//		console.log(layoutElement.style.height);
+//		console.log(layoutElement.parentElement.style.height);
+		
+		if (layoutElement.parentElement.offsetHeight < this.layoutHeight) {
+			layoutElement.parentElement.style.height = layoutElement.style.height;
+		}
 	};
 	
 	$proto.buildLayoutWidth = function (layoutElement) {
@@ -54,24 +66,25 @@
 			elementWidth = sizeValue;
 		}
 		layoutElement.style.width = elementWidth + 'px';
+		return elementWidth;
 	};
 	
 	// desconsidera o padding para montagem das linhas, até posicionar os elementos
 	$proto.configLines = function (layoutElement, _horizontalPadding, _verticalPadding) {
 		
 		var parentOffset = {left : 0, top : 0};
-		if (layoutElement.style.position !== 'absolute') {
-			parentOffset = flexLayout.Util.getOffset(layoutElement);
-		}
+//		if (this.isParentAnLayout) {
+//			parentOffset = flexLayout.Util.getOffset(layoutElement); // TODO REVER
+//		}
 		
 //			var layoutWidth = flexLayout.Util.getSizeValueInt(layoutElement.style.width);
-		var _yPosition = parentOffset.top + (this._avoidBorderPadding ? 0 : _verticalPadding);
-		var _xPosition = parentOffset.left + (this._avoidBorderPadding ? 0 : _horizontalPadding);
+		var _yPosition = parentOffset.top;// + (this._avoidBorderPadding ? 0 : _verticalPadding);
+		var _xPosition = parentOffset.left;// + (this._avoidBorderPadding ? 0 : _horizontalPadding);
 		var children = layoutElement.children;
 		var currentLine = new flexLayout.Line(this, _horizontalPadding);
 		currentLine.setOffset(_yPosition, _xPosition);
 		var lines = [currentLine];
-		var layoutHeight = (this._avoidBorderPadding ? 0 : _verticalPadding);
+		var layoutHeight = 0;//(this._avoidBorderPadding ? 0 : _verticalPadding);
 		var elementAdded;
 		for (var i = 0; i < children.length ; i ++ ) {
 			var childElement = children[i];
@@ -82,7 +95,7 @@
 				layoutHeight += lineHeight;
 				_yPosition += lineHeight;
 				currentLine = new flexLayout.Line(this, _horizontalPadding);
-				currentLine.setOffset( { top : _yPosition, left : _xPosition } );
+				currentLine.setOffset(_yPosition, _xPosition);
 				currentLine.addElement(childElement);
 				lines.push(currentLine);
 			}
