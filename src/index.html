@@ -7,53 +7,101 @@
 </head>
 <!-- pq tenho q definir layout? e se for automatica a definição de parent layout? -->
 <body>
-	<div style="width: 100%; height: 100%; display: inline-block;">
-		<div style="width: 20%; height: 100%; display: inline-block; background-color: red" ></div>
-<!-- 		<div style="width: 60%; height: 100%; display: inline-block; background-color: yellow" > -->
-		<div layout width="60" style="background-color: yellow" >
-			<div layout width="100" style="display: inline-block;">
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
+	<div>
+		<div layout >
+			<div width="20%" style="background-color: red" >a</div>
+			<div layout width="60%" style="background-color: yellow">
+				<div layout width="100" >
+					<input type="text" />
+					<div layout width="100" >
+						<input type="text" width="50%" />
+						<input type="text" width="50%" />
+					</div>
+					<div layout width="100">
+						<input type="text" width="20%" />
+						<input type="text" width="20%" />
+						<input type="text" width="20%" />
+						<input type="text" width="20%" />
+						<input type="text" width="20%" />
+					</div>
+				</div>
 			</div>
-			<div layout width="100" style="display: inline-block;">
-				<input type="text" width="25%" />
-				<input type="text" width="25%" />
-				<input type="text" width="25%" />
-				<input type="text" width="25%" />
-			</div>
-			<div layout width="25">
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-			</div>
-			<div layout width="25">
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-			</div>
-			<div layout width="25">
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-			</div>
-			<div layout width="25">
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-				<input type="text" width="20%" />
-			</div>
+			<div width="20%" style="background-color: green" >a</div>
 		</div>
-		<div style="width: 20%; height: 100%; display: inline-block; background-color: green" ></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div style="width: 100%; height: 100%; display: inline-block;">
+	
+<!-- 		<div style="width: 20%; height: 100%; display: inline-block; background-color: red" >a</div> -->
+<!-- 		<div style="width: 58%; height: 100%; display: inline-block; background-color: yellow">a -->
+<!-- 			<div layout width="100" > -->
+<!-- 				<input type="text" /> -->
+<!-- 				<div layout width="100" > -->
+<!-- 					<input type="text" width="50%" /> -->
+<!-- 					<input type="text" width="50%" /> -->
+<!-- 				</div> -->
+<!-- 				<div layout width="100"> -->
+<!-- 					<input type="text" width="20%" /> -->
+<!-- 					<input type="text" width="20%" /> -->
+<!-- 					<input type="text" width="20%" /> -->
+<!-- 					<input type="text" width="20%" /> -->
+<!-- 					<input type="text" width="20%" /> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+
+		
+<!-- 		<div style="width: 60%; height: 100%; display: inline-block; background-color: yellow" > -->
+<!-- 		<div layout width="60" style="background-color: yellow" > -->
+<!-- 			<div layout width="100" style="display: inline-block;"> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 			</div> -->
+<!-- 			<div layout width="100" style="display: inline-block;"> -->
+<!-- 				<input type="text" width="25%" /> -->
+<!-- 				<input type="text" width="25%" /> -->
+<!-- 				<input type="text" width="25%" /> -->
+<!-- 				<input type="text" width="25%" /> -->
+<!-- 			</div> -->
+<!-- 			<div layout width="25"> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 			</div> -->
+<!-- 			<div layout width="25"> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 			</div> -->
+<!-- 			<div layout width="25"> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 			</div> -->
+<!-- 			<div layout width="25"> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 				<input type="text" width="20%" /> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		<div style="width: 20%; height: 100%; display: inline-block; background-color: green" >a</div>
 	</div>
 	
 	<script type="text/javascript" src="flexLayout/Register.js"></script>
