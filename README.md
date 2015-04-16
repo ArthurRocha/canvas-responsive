@@ -1,7 +1,8 @@
-# form-layout
+# flex-layout
 Objetivo
-Ofertar alinhamento e aninhamento de elementos Html de forma simples e objetiva.
+Ofertar alinhamento e aninhamento de elementos Html de forma simples e objetiva. Suportar responsividade.
 Evita conflitos CSS, pode ser utilizado com qualquer framework JS.  
+Permitir definição de label e mensagens nos elementos.
 
 Ideias
 
@@ -42,24 +43,6 @@ Atividades
 https://www.youtube.com/watch?v=ya4UHuXNygM
 https://www.youtube.com/user/yuilibrary
 
-http://www.w3schools.com/html/html5_canvas.asp
-//
-// testar com x e y
-/*
-//--------CONTAGEM DE FILHOS
-var count = 0;
-function countChildren(element) {
-	var children = element.children;
-	if (!children || children.length === 0) {
-		return;
-	}
-	count += children.length
-	for (var index = 0 ; index < children.length ; index++) {
-		countChildren(children[index])
-	}
-};
-countChildren(document.body);
-console.log(count);
  */
 
 //		NORMALIZE
@@ -93,11 +76,11 @@ console.log(count);
  * layout
  * form
  * 
- * form-layout -> form + layout
+ * flex-layout -> form + layout
  * 
  * Modelo:
- * 	<div form-layout | lform
- * 		<children label width height message-error message-success messageInfo messageWarn helpMessage
+ * 	<div layout
+ * 		<child label width height message-error message-success messageInfo messageWarn helpMessage
  * Atributos
  * form -> Identificador de formulário responsivo e com controle de mensagens sobre seus filhos.
  * label -> Título do campo
@@ -110,9 +93,6 @@ console.log(count);
  * 
  * 
  * EVENTO RESIZE
- * 
- * cada Canvas possui seu DIV correspondente
- * cada filho do canvas possui um rectangle correspondente?
  * 
  * INPUT
  * mensagem inline - balão - TODO - Material Google
