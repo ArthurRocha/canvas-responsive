@@ -74,9 +74,13 @@
 		var elements = this.getElements();
 		var elementsLayoutCount = this.getElementsLayoutCount();
 		if (this.parentLayoutElement.isParentAnLayout) {
-			elementsLayoutCount--;
+//			elementsLayoutCount--;
 		}
-		var totalWidthWithoutPadding = this.parentWidth - elementsLayoutCount * this._horizontalPadding
+		var totalWidthWithoutPadding = this.parentWidth;// - (elementsLayoutCount * this._horizontalPadding)
+		var lastElementIsLayout = elements[elements.length - 1].isLayout; // childElement
+		if (!lastElementIsLayout) {
+			totalWidthWithoutPadding -= this._horizontalPadding;
+		}
 		for (var i = 0 ; i < elements.length; i ++ ) {
 			var childElement = elements[i];
 			var node = childElement.node;

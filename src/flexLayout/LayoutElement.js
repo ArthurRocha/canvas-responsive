@@ -1,4 +1,7 @@
 /**
+ * http://stackoverflow.com/questions/1735230/can-i-add-custom-attribute-to-html-tag
+ * http://www.w3schools.com/DTD/dtd_attributes.asp
+ * 
  *******************************************************************************************************
  *******	LayoutElement
  *******************************************************************************************************
@@ -24,10 +27,10 @@
 	
 	// se não possuir o width definido deve assumir o width do style (parametrizar)
 	$proto.buildLines = function () {
-		//TODO DEFINIR COMO ABSOLUTE E SETAR X E Y -- SETA O WIDTH NO INICIO E O HEIGHT NO FINAL -- CRIA UMA DIV POR VOLTA CASO O PARENT N SEJA LAYOUT ELEMENT? PARA FICAR OK COM O CSS ATUAL
+		//TODO CRIA UMA DIV POR VOLTA CASO O PARENT N SEJA LAYOUT ELEMENT? PARA FICAR OK COM O CSS ATUAL ?
 		
 		var layoutElement = this.node;
-		if (!this.isParentAnLayout) {
+		if (/*!this.isParentAnLayout*/ layoutElement.parentElement.style.position !== 'absolute' && layoutElement.getAttribute('builded') !== 'true') { // TODO builded
 			var offset = flexLayout.Util.getOffset(layoutElement);
 			layoutElement.style.position = 'absolute';
 			layoutElement.style.top = offset.top + 'px';
@@ -53,6 +56,7 @@
 		if (layoutElement.parentElement.offsetHeight < this.layoutHeight) {
 			layoutElement.parentElement.style.height = layoutElement.style.height;
 		}
+		//layoutElement.setAttribute('builded', 'true');
 	};
 	
 	$proto.buildLayoutWidth = function (layoutElement) {
@@ -77,9 +81,8 @@
 //			parentOffset = flexLayout.Util.getOffset(layoutElement); // TODO REVER
 //		}
 		
-//			var layoutWidth = flexLayout.Util.getSizeValueInt(layoutElement.style.width);
-		var _yPosition = parentOffset.top;// + (this._avoidBorderPadding ? 0 : _verticalPadding);
-		var _xPosition = parentOffset.left;// + (this._avoidBorderPadding ? 0 : _horizontalPadding);
+		var _yPosition = parentOffset.top;
+		var _xPosition = parentOffset.left;
 		var children = layoutElement.children;
 		var currentLine = new flexLayout.Line(this, _horizontalPadding);
 		currentLine.setOffset(_yPosition, _xPosition);
@@ -96,7 +99,7 @@
 				_yPosition += lineHeight;
 				currentLine = new flexLayout.Line(this, _horizontalPadding);
 				currentLine.setOffset(_yPosition, _xPosition);
-				currentLine.addElement(childElement);
+				elementAdded = currentLine.addElement(childElement);
 				lines.push(currentLine);
 			}
 			
